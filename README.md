@@ -1,3 +1,48 @@
+## Available Scripts
+
+Make sure you installed everything with
+### `npm run install`
+In the project directory, you can run:
+
+### `npm run dev`
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+If port 3000 is already being used in your machine you can alter it on the `vite.config.ts` file by changing the port value on line 8.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Runs the test suite for the filter action and the dropdown, button and table components on your terminal
+
+### `npm run test:cov`
+
+Also run s the test suite but also gives some insight regarding the test coverage for a statements, branches, functions and lines.
+
+## General Thoughts on the Project
+
+I've decided to utilize React and Typescript as my main tools for the development of this project as they are my most common used "tech stack". For the general configuration of the application I've used Vite, instead of Create React App, because the esbuild bundler which it comes with is much faster than the Webpack used in CRA and the configuration needed for Vite is a lot smaller. Not only that but the CRA pipeline has been left out of latest versions of React as of April 21st, 2022. Another tool that could be used similar to Vite , but not with the same responsibilities and perks is Next. I felt like Next would be a bit overkill for this project, since I wouldn't be using any of its great benefits ( SSR, Routing, built-in backend, etc.); if the project had a bigger scope or would continue along, I believe that Next would be the optimal tool.
+
+As a whole I've used 9 hours to finalize this project, how this period is broken down is as follows:
+ -> 1 hour for documentation;
+ -> 30 minutes for general project and repository configuration;
+ -> 1 hour and a half for testing configuration and test construction;
+ -> 5 hours for general development of the project, adding main functionalities;
+ -> 1 hours for manual testing and bug fixing;
+
+During the project I had as a goal to try and separate responsibilities between components, main page and any utilities scripts. Since it is a small project I didn't feel like there was a need to utilize React's Context API ( or any other state management library) in order to control the general state of the application. For that I used only a couple of `useState`  hooks; however, in order to not have too much "prop drilling" I left the number of component layers to a minimal. An example of that is how I handled the filtering section:
+
+Instead of prop drilling the filtering logic for 3 layers of components I've decided to render most of the filtering section inside `App.tsx`  and have the communication with the Table component be a bit more straight. The counterpart to this decision is having the codebase for the main page a bit bigger. Nonetheless, I've created a `utils.ts` file to move most of the filtering logic from the `App.tsx` to make everything a bit more organized.
+
+Now, talking about the filtering logic I've separated the relevant information inside a `data.json` file in 3 parts: properties, products and operators. The code for the table as well as the selectors are equipped to handle a change on the products and properties arrays. Moreover, the operator logic was divided in operators that needed a `property value` to be compared to and those who don't need it.  A small remark is that due to not using any third-party libraries for the Dropdowns the `is any of` operator needs to have a separate click behavior; the user needs to  push the command or ctrl key while clicking on the desired option in order to the multiple select component to read more than one chosen value.
+
+Finally, regarding the testing of the application I've decided to utilize `Jest` together with `react-testing-library`  for the sake of being able to test some components atomically but their functionalities and end result as well.  The flow that was tested is the filter a category with an equal operator and a specific value; the hypothesis tested is that using the aforementioned filter the count of table rows would diminish, and be reseted with the use of the "clear" button.
+
+If any questions are left after reading this documentation and testing the application first hand I'be glad to talk about them on our feedback meeting.
+
+--
+
 # Product Filtering Condition Editor UI
 A Coding Exercise for UI Developers
 
