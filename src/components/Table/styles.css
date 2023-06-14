@@ -31,3 +31,9 @@
     color: #fff;
   }
   
+
+  @media (max-width: 900px) {
+    .product-table {
+      overflow-x: auto;
+    }
+  }
