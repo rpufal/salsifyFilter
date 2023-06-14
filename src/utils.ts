@@ -13,6 +13,17 @@ export const handleOperatorFilter = (selectedOperator: string, selectedPropertyV
   return false;
 }
 
+export const capitalizeWords = (str: string) =>  {
+  const words = str.split(' ');
+  const capitalizedWords = words.map(word => {
+    const firstLetter = word.charAt(0).toUpperCase();
+    const restOfWord = word.slice(1);
+    return firstLetter + restOfWord;
+  });
+  const capitalizedString = capitalizedWords.join(' ');
+  return capitalizedString;
+}
+
 export const notPermitedOperatorsIds = {
   notForString:["greater_than", "less_than"],
   notForNumber: ["contains"],

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import DropdownProps  from "./types";
 import "./styles.css";
+import { capitalizeWords } from "../../utils";
 
 export const Dropdown: FC<DropdownProps> = ({handleChange, options, placeholderText, multiple}) => {
   return (
@@ -10,13 +11,13 @@ export const Dropdown: FC<DropdownProps> = ({handleChange, options, placeholderT
         if (typeof option === "object") {
           return (
           <option className="dropdown-option" key={`${option.id}-${index}`} value={option.id}>
-            {option.name || option.text}
+            {option.name ? capitalizeWords(option.name) : option.text && capitalizeWords(option.text)}
           </option>
           )
         }
         return ( 
         <option key={`${option}-${index}`} value={option}>
-          {option}
+          {capitalizeWords(option.toString())}
         </option>)
       })}
     </select>

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import ProductTableProps from "./types";
 import "./styles.css";
+import { capitalizeWords } from "../../utils";
 
 export const Table: FC<ProductTableProps> = ({products, properties}) => {
   return (
@@ -8,7 +9,7 @@ export const Table: FC<ProductTableProps> = ({products, properties}) => {
       <thead>
         <tr>
             {properties.map((property, index) => (
-                <th key={property.id + index}>{property.name}</th>
+                <th key={property.id + index}>{capitalizeWords(property.name)}</th>
             ))}
         </tr>
       </thead>
@@ -16,7 +17,7 @@ export const Table: FC<ProductTableProps> = ({products, properties}) => {
         {products.map((product) => (
           <tr key={product.id} data-testid={"table-row"} >
             {product.property_values.map((property, index) => (
-              <td key={property.property_id + index}>{property.value}</td> 
+              <td key={property.property_id + index}>{capitalizeWords(property.value.toString())}</td> 
             ))}
             {Array.from({length: properties.length - product.property_values.length}).map((_item, index) => <td key={index + "NA"}></td>)}
           </tr>
