@@ -30,7 +30,7 @@ As a whole I've used 9 hours to finalize this project, how this period is broken
  * 1 hour for documentation;
  * 30 minutes for general project and repository configuration;
  * 1 hour and a half for testing configuration and test construction;
- * 5 hours for general development of the project, adding main functionalities;
+ * 5 hours for general development of the project, adding main functionalities, etc;
  * 1 hours for manual testing and bug fixing;
 
 During the project I had as a goal to try and separate responsibilities between components, main page and any utilities scripts. Since it is a small project I didn't feel like there was a need to utilize React's Context API ( or any other state management library) in order to control the general state of the application. For that I used only a couple of `useState`  hooks; however, in order to not have too much "prop drilling" I left the number of component layers to a minimal. An example of that is how I handled the filtering section:
