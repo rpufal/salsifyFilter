@@ -1,5 +1,5 @@
 interface DropdownProps {
-    handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    handleChange: (event: React.ChangeEvent<HTMLSelectElement>, multiple: boolean) => void;
     options: 
     (string | number)[]
     |{
@@ -8,6 +8,7 @@ interface DropdownProps {
         name?: string;
     }[];
     placeholderText: string;
+    multiple?: boolean;
 }
 
 export default DropdownProps;

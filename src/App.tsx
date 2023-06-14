@@ -2,7 +2,7 @@ import {operators, properties, products} from "./data.json"
 import {Table, Dropdown} from "./components"
 import { useState, useEffect } from 'react';
 import "./App.css";
-import { noValueNeededOperator, setNotPermited, setPropertyValues } from "./utils";
+import { noValueNeededOperator, setNotPermited, setPropertyValues, handleOperatorFilter } from "./utils";
 
 
 
@@ -30,7 +30,12 @@ function App() {
     setPropertyValues(selectedId, setPropertyValueOptions)
   };
 
-  const handlePropertyValueChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handlePropertyValueChange = (event: React.ChangeEvent<HTMLSelectElement>, multiple: boolean): void => {
+    if (multiple) {
+      const updatedMultipleValue = Array.from(event.target.selectedOptions, (option: HTMLOptionElement) => option.value).join("|")
+      setSelectedPropertyValue(updatedMultipleValue)
+      return
+    }
     setSelectedPropertyValue(event.target.value);
   };
 
@@ -39,14 +44,6 @@ function App() {
     setSelectedPropertyValue("")
     setSelectedOperator("")
     setProductsToShow(products)
-  }
-
-  const handleOperatorFilter = (selectedOperator: string, selectedPropertyValue: string | number, selectedPropertyId: string, currentProp: {property_id: number, value :string | number}) => {
-      if (selectedOperator === "equals" && selectedPropertyId === currentProp.property_id.toString() && selectedPropertyValue.toString() === currentProp.value.toString()) return true;
-      if (selectedOperator === "greater_than" && selectedPropertyId === currentProp.property_id.toString() && selectedPropertyValue < currentProp.value) return true;
-      if (selectedOperator === "less_than" && selectedPropertyId === currentProp.property_id.toString() && selectedPropertyValue > currentProp.value) return true;
-      if (selectedOperator === "contains" && selectedPropertyId === currentProp.property_id.toString() && selectedPropertyValue.toString().includes(currentProp.value.toString())) return true;
-      return false;
   }
 
   useEffect(() => {
@@ -69,15 +66,17 @@ function App() {
       setProductsToShow(updatedListproducts)
     }
   }, [selectedPropertyId, selectedPropertyValue, selectedOperator])
+
   return (
     <>
     <div className="container">
-      <div className="dropdown-row">
+      <div className="dropdown-section">
       <Dropdown  placeholderText="Select a Property" handleChange={handlePropertyChange} options={properties}/>
       {selectedPropertyId &&
       <Dropdown placeholderText="Select an Operator" handleChange={handleOperatorChange} options={operators.filter((operator) => !notPermittedOperatorList.includes(operator.id))}/>}
       {selectedPropertyId && selectedOperator && !noValueNeededOperator.includes(selectedOperator) && 
-      <Dropdown placeholderText="Select a Value" handleChange={handlePropertyValueChange} options={propertyValueOptions} />}
+      <Dropdown placeholderText="Select a Value" handleChange={handlePropertyValueChange}
+      multiple={selectedOperator === "in" ? true : false} options={propertyValueOptions}/>}
       </div>
       <button onClick={handleClear}>Clear</button>
     </div>

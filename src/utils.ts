@@ -1,6 +1,17 @@
 
 import {operators, properties, products} from "./data.json"
 
+export const handleOperatorFilter = (selectedOperator: string, selectedPropertyValue: string | number, selectedPropertyId: string, currentProp: {property_id: number, value :string | number}) => {
+  if (selectedPropertyId === currentProp.property_id.toString()) {
+    if (selectedOperator === "equals" &&  selectedPropertyValue.toString() === currentProp.value.toString()) return true;
+    if (selectedOperator === "greater_than" &&  selectedPropertyValue < currentProp.value) return true;
+    if (selectedOperator === "less_than" &&  selectedPropertyValue > currentProp.value) return true;
+    if (selectedOperator === "contains" &&  selectedPropertyValue.toString().includes(currentProp.value.toString())) return true;
+    if (selectedOperator === "in" &&  selectedPropertyValue.toString().split("|").includes(currentProp.value.toString())) return true;
+    return false;
+  }
+}
+
 export const notPermitedOperatorsIds = {
     notForString:["greater_than", "less_than"],
     notForNumber: ["contains"],
