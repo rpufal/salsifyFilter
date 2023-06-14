@@ -1,0 +1,26 @@
+.dropdown {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    height: 36px;
+  }
+
+.dropdown-option {
+    background-color: #fff !important;
+}
+
+  .multiple {
+    height: 60px;
+  }
+  
+  .dropdown:hover {
+    border-color: #999;
+  }
+  
+  .dropdown:focus {
+    outline: none;
+    border-color: #333;
+  }
+  
