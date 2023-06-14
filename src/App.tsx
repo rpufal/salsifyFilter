@@ -1,11 +1,8 @@
-import {operators, properties, products} from "./data.json"
-import {Table, Dropdown} from "./components"
+import {operators, properties, products} from "./data.json";
+import {Table, Dropdown} from "./components";
 import { useState, useEffect } from 'react';
 import "./App.css";
 import { noValueNeededOperator, setNotPermited, setPropertyValues, handleOperatorFilter } from "./utils";
-
-
-
 
 function App() {
   const [selectedPropertyId, setSelectedPropertyId] = useState('');
@@ -21,68 +18,68 @@ function App() {
 
   const handlePropertyChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     if (event.target.value === "") {
-      setSelectedPropertyId("")
-      return
+      setSelectedPropertyId("");
+      return;
     };
     const selectedId = parseInt(event.target.value);
     setSelectedPropertyId(selectedId.toString());
-    setNotPermited(selectedId, setNotPermittedOperatorList)
-    setPropertyValues(selectedId, setPropertyValueOptions)
+    setNotPermited(selectedId, setNotPermittedOperatorList);
+    setPropertyValues(selectedId, setPropertyValueOptions);
   };
 
   const handlePropertyValueChange = (event: React.ChangeEvent<HTMLSelectElement>, multiple: boolean): void => {
     if (multiple) {
-      const updatedMultipleValue = Array.from(event.target.selectedOptions, (option: HTMLOptionElement) => option.value).join("|")
-      setSelectedPropertyValue(updatedMultipleValue)
-      return
+      const updatedMultipleValue = Array.from(event.target.selectedOptions, (option: HTMLOptionElement) => option.value).join("|");
+      setSelectedPropertyValue(updatedMultipleValue);
+      return;
     }
     setSelectedPropertyValue(event.target.value);
   };
 
   const handleClear = () => {
-    setSelectedPropertyId("")
-    setSelectedPropertyValue("")
-    setSelectedOperator("")
-    setProductsToShow(products)
+    setSelectedPropertyId("");
+    setSelectedPropertyValue("");
+    setSelectedOperator("");
+    setProductsToShow(products);
   }
 
   useEffect(() => {
-    const noMainNullFilters = ![selectedOperator, selectedPropertyId].includes("")
+    const noMainNullFilters = ![selectedOperator, selectedPropertyId].includes("");
     if (![selectedOperator, selectedPropertyId, selectedPropertyValue].includes("")) {
       const updatedListproducts = products.filter((product) => {
         return product.property_values.find((propValue) => handleOperatorFilter(selectedOperator, selectedPropertyValue, selectedPropertyId, propValue))
-      })
-      setProductsToShow(updatedListproducts)
+      });
+      setProductsToShow(updatedListproducts);
     }
     if (noMainNullFilters && noValueNeededOperator.includes(selectedOperator)) {
       const updatedListproducts = products.filter((product) => {
         if (selectedOperator === "none") {
-          return !product.property_values.some(propValue => propValue.property_id === parseInt(selectedPropertyId))
+          return !product.property_values.some(propValue => propValue.property_id === parseInt(selectedPropertyId));
         }
         if (selectedOperator === "any") {
-          return product.property_values.find((propValue) => propValue.property_id === parseInt(selectedPropertyId))
+          return product.property_values.find((propValue) => propValue.property_id === parseInt(selectedPropertyId));
         }
       })
-      setProductsToShow(updatedListproducts)
+      setProductsToShow(updatedListproducts);
     }
-  }, [selectedPropertyId, selectedPropertyValue, selectedOperator])
+  }, [selectedPropertyId, selectedPropertyValue, selectedOperator]);
 
   return (
     <>
-    <div className="container">
-      <div className="dropdown-section">
-      <Dropdown  placeholderText="Select a Property" handleChange={handlePropertyChange} options={properties}/>
-      {selectedPropertyId &&
-      <Dropdown placeholderText="Select an Operator" handleChange={handleOperatorChange} options={operators.filter((operator) => !notPermittedOperatorList.includes(operator.id))}/>}
-      {selectedPropertyId && selectedOperator && !noValueNeededOperator.includes(selectedOperator) && 
-      <Dropdown placeholderText="Select a Value" handleChange={handlePropertyValueChange}
-      multiple={selectedOperator === "in" ? true : false} options={propertyValueOptions}/>}
+      <div className="container">
+        <div className="dropdown-section">
+          <Dropdown  placeholderText="Select a Property" handleChange={handlePropertyChange} options={properties}/>
+          {selectedPropertyId &&
+          <Dropdown placeholderText="Select an Operator" handleChange={handleOperatorChange} options={operators.filter((operator) => !notPermittedOperatorList.includes(operator.id))}/>}
+          {selectedPropertyId && selectedOperator && !noValueNeededOperator.includes(selectedOperator) && 
+          <Dropdown placeholderText="Select a Value" handleChange={handlePropertyValueChange}
+          multiple={selectedOperator === "in" ? true : false} options={propertyValueOptions}/>}
+        </div>
+        <button onClick={handleClear}>Clear</button>
       </div>
-      <button onClick={handleClear}>Clear</button>
-    </div>
-    <Table products={productsToShow} properties={properties}/>
+      <Table products={productsToShow} properties={properties}/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

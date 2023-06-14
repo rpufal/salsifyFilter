@@ -1,9 +1,9 @@
 import { FC } from "react";
-import DropdownProps from "./types";
+import DropdownProps  from "./types";
 import "./styles.css";
 
 export const Dropdown: FC<DropdownProps> = ({handleChange, options, placeholderText, multiple}) => {
-    return (
+  return (
     <select className={`dropdown ${multiple && "multiple"}`} onChange={multiple ? (e) => handleChange(e, true) : (e) => handleChange(e, false)} multiple={multiple && multiple}>
       <option className="dropdown-option" value="">{placeholderText}</option>
       {options.map((option, index) => {
@@ -20,5 +20,5 @@ export const Dropdown: FC<DropdownProps> = ({handleChange, options, placeholderT
         </option>)
       })}
     </select>
-    )
+  );
 }
