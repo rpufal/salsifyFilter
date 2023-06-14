@@ -6,7 +6,7 @@ export const handleOperatorFilter = (selectedOperator: string, selectedPropertyV
     if (selectedOperator === "equals" &&  selectedPropertyValue.toString() === currentProp.value.toString()) return true;
     if (selectedOperator === "greater_than" &&  selectedPropertyValue < currentProp.value) return true;
     if (selectedOperator === "less_than" &&  selectedPropertyValue > currentProp.value) return true;
-    if (selectedOperator === "contains" &&  selectedPropertyValue.toString().includes(currentProp.value.toString())) return true;
+    if (selectedOperator === "contains" &&  currentProp.value.toString().includes(selectedPropertyValue.toString())) return true;
     if (selectedOperator === "in" &&  selectedPropertyValue.toString().split("|").includes(currentProp.value.toString())) return true;
     return false;
   }
