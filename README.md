@@ -1,3 +1,5 @@
+# Documentation START
+
 ## Available Scripts
 
 Make sure you installed everything with
@@ -25,11 +27,11 @@ Also run s the test suite but also gives some insight regarding the test coverag
 I've decided to utilize React and Typescript as my main tools for the development of this project as they are my most common used "tech stack". For the general configuration of the application I've used Vite, instead of Create React App, because the esbuild bundler which it comes with is much faster than the Webpack used in CRA and the configuration needed for Vite is a lot smaller. Not only that but the CRA pipeline has been left out of latest versions of React as of April 21st, 2022. Another tool that could be used similar to Vite , but not with the same responsibilities and perks is Next. I felt like Next would be a bit overkill for this project, since I wouldn't be using any of its great benefits ( SSR, Routing, built-in backend, etc.); if the project had a bigger scope or would continue along, I believe that Next would be the optimal tool.
 
 As a whole I've used 9 hours to finalize this project, how this period is broken down is as follows:
- -> 1 hour for documentation;
- -> 30 minutes for general project and repository configuration;
- -> 1 hour and a half for testing configuration and test construction;
- -> 5 hours for general development of the project, adding main functionalities;
- -> 1 hours for manual testing and bug fixing;
+ * 1 hour for documentation;
+ * 30 minutes for general project and repository configuration;
+ * 1 hour and a half for testing configuration and test construction;
+ * 5 hours for general development of the project, adding main functionalities;
+ * 1 hours for manual testing and bug fixing;
 
 During the project I had as a goal to try and separate responsibilities between components, main page and any utilities scripts. Since it is a small project I didn't feel like there was a need to utilize React's Context API ( or any other state management library) in order to control the general state of the application. For that I used only a couple of `useState`  hooks; however, in order to not have too much "prop drilling" I left the number of component layers to a minimal. An example of that is how I handled the filtering section:
 
@@ -41,7 +43,7 @@ Finally, regarding the testing of the application I've decided to utilize `Jest`
 
 If any questions are left after reading this documentation and testing the application first hand I'be glad to talk about them on our feedback meeting.
 
---
+# END 
 
 # Product Filtering Condition Editor UI
 A Coding Exercise for UI Developers
