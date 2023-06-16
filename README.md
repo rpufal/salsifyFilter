@@ -3,7 +3,7 @@
 ## Available Scripts
 
 Make sure you installed everything with
-### `npm run install`
+### `npm  install`
 In the project directory, you can run:
 
 ### `npm run dev`
